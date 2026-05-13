@@ -1,0 +1,15 @@
+nilearn
+cmcrameri
+numpy
+pandas
+seaborn
+ipywidgets
+matplotlib
+notebook
+ipykernel
+ptitprince
+colorspacious
+nibabel
+pillow
+scikit-learn
+plotly
