@@ -85,6 +85,10 @@ For this tutorial, we will use the brain development fMRI dataset, which include
 development_dataset = datasets.fetch_development_fmri(data_dir='data/')
 ```
 
+```python
+development_dataset['func']
+```
+
 ### Datasaurus
 In the first part of the tutorial, we will also briefly use the dataset datasaurus. If you want to be able to execute the cells using that dataset, you will have to download the data from [kaggle](https://www.kaggle.com/datasets/tombutton/datasaurusdozen).
 
@@ -238,12 +242,12 @@ You can generate a histogram in Matplotlib using the [hist function](https://mat
 
 ```python jp-MarkdownHeadingCollapsed=true
 # Let's visualize the distribution of `Age`
-...
+plt.hist(participants['Age'])
 # Adding a title
-...
-# Adding a title for he x and y label
-...
-...
+plt.title('Age distribution')
+# Adding a title for the x and y label
+plt.xlabel('Age')
+plt.ylabel('Frequency')
 ```
 
 <div class="alert alert-block alert-info">
@@ -258,8 +262,18 @@ You can generate a histogram in Matplotlib using the [hist function](https://mat
 </div>
 
 ```python
+help(plt.hist)
+```
+
+```python
 # Change the value of `bins` (ex. bins=10)
-...
+# Let's visualize the distribution of `Age`
+plt.hist(participants['Age'], bins=10)
+# Adding a title
+plt.title('Age distribution')
+# Adding a title for the x and y label
+plt.xlabel('Age')
+plt.ylabel('Frequency')
 ```
 
 <div class="alert alert-block alert-info">
@@ -273,7 +287,12 @@ help(plt.hist)
 
 ```python
 # Let's visualize the distribution of `Age` (ex. bins='fd')
-...
+plt.hist(participants['Age'], bins='fd')
+# Adding a title
+plt.title('Age distribution')
+# Adding a title for the x and y label
+plt.xlabel('Age')
+plt.ylabel('Frequency')
 ```
 
 #### kde plot
@@ -282,7 +301,7 @@ The **Kernel Density Estimation (KDE)** allows us to visualize he distribution o
 
 ```python
 # To visualize the kernel density estimation, we will use the `kdeplot` function in `seaborn`
-...
+sns.kdeplot(participants['Age'])
 ```
 
 <div class="alert alert-block alert-info">
@@ -298,7 +317,13 @@ The **Kernel Density Estimation (KDE)** allows us to visualize he distribution o
 
 ```python
 # We can also overlap a histogram with a kde plot in `seaborn` using the `histplot` function
-# (kde=True, binds='fd', edgecolor=None)
+# (kde=True, bins='fd', edgecolor=None)
+sns.histplot(
+    participants['Age'],
+    kde=True,
+    bins='fd',
+    edgecolor=None
+)
 ```
 
 <div class="alert alert-block alert-info">
@@ -315,7 +340,9 @@ The **strip plot** allows us to visualize each individual data point. This can m
 
 ```python
 # Using seaborn `stripplot` function
-...
+sns.stripplot(
+    x=participants['Age']
+)
 ```
 
 <div class="alert alert-block alert-warning">
@@ -324,11 +351,15 @@ The **strip plot** allows us to visualize each individual data point. This can m
 </div>
 
 ```python
-# To complete
+sns.stripplot(
+    x=participants['Age']
+)
 ```
 
 ```python
-# To complete
+sns.stripplot(
+    x=participants['Age']
+)
 ```
 
 <div class="alert alert-block alert-info">
@@ -337,11 +368,17 @@ The **strip plot** allows us to visualize each individual data point. This can m
 </div>
 
 ```python
-...
+np.random.seed(10)
+sns.stripplot(
+    x=participants['Age']
+)
 ```
 
 ```python
-...
+np.random.seed(10)
+sns.stripplot(
+    x=participants['Age']
+)
 ```
 
 #### Bar plots
@@ -400,8 +437,19 @@ For a **categorical variable** x **continuous variable**, we can use:
 #### Scatter plot - Continuous variable x continuous variable
 
 ```python
+help(plt.scatter)
+```
+
+```python
 # Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with matplotlib `scatter` function
-...
+plt.scatter(
+    x='Age',
+    y='ToM Booklet-Matched',
+    data=participants
+)
+plt.xlabel('Age')
+plt.ylabel('ToM score')
+plt.title('Relationship between Age and ToM score')
 ```
 
 <div class="alert alert-block alert-warning">
@@ -426,7 +474,11 @@ participants.groupby(['Child_Adult'])['ToM Booklet-Matched'].mean()
 
 ```python
 # Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with seaborn `regplot` function
-...
+sns.regplot(
+    x='Age',
+    y='ToM Booklet-Matched',
+    data=participants
+)
 ```
 
 <div class="alert alert-block alert-warning">
@@ -435,7 +487,12 @@ participants.groupby(['Child_Adult'])['ToM Booklet-Matched'].mean()
 </div>
 
 ```python
-# To complete
+sns.regplot(
+    x='Age',
+    y='ToM Booklet-Matched',
+    data=participants,
+    order=2
+)
 ```
 
 <div class="alert alert-block alert-info">
@@ -445,7 +502,12 @@ participants.groupby(['Child_Adult'])['ToM Booklet-Matched'].mean()
 
 ```python
 # Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with seaborn `lmplot` function
-...
+sns.lmplot(
+    x='Age',
+    y='ToM Booklet-Matched',
+    data=participants,
+    hue='Gender'
+)
 ```
 
 #### Bivariate KDE plot and hex plot - Continuous Variable x continuous Variable
@@ -967,11 +1029,11 @@ for spine in ax.spines.values():
 fig, ax = plt.subplots(figsize=(6, 4))
 
 ax.hist(participants['Age'], bins='fd')
-axes.set_title("Age Distribution")
-axes.set_xlabel('Age')
-axes.set_ylabel('Frequency')
+ax.set_title("Age Distribution")
+ax.set_xlabel('Age')
+ax.set_ylabel('Frequency')
 
-ax.spines[['right', 'top', 'left', 'bottom']].set_visible(False) # ax.spines.top.set_visible(False)
+ax.spines[['right', 'top']].set_visible(False) # ax.spines.top.set_visible(False)
 ```
 
 ### Ticks
@@ -980,9 +1042,9 @@ ax.spines[['right', 'top', 'left', 'bottom']].set_visible(False) # ax.spines.top
 fig, ax = plt.subplots(figsize=(6, 4))
 
 ax.hist(participants['Age'], bins='fd')
-axes.set_title("Age Distribution")
-axes.set_xlabel('Age')
-axes.set_ylabel('Frequency')
+ax.set_title("Age Distribution")
+ax.set_xlabel('Age')
+ax.set_ylabel('Frequency')
 
 ax.tick_params(
     axis='both', # Modification applied to both axes (x and y)
@@ -1003,9 +1065,9 @@ ax.tick_params(
 fig, ax = plt.subplots(figsize=(6, 4))
 
 ax.hist(participants['Age'], bins='fd')
-axes.set_title("Age Distribution")
-axes.set_xlabel('Age')
-axes.set_ylabel('Frequency')
+ax.set_title("Age Distribution")
+ax.set_xlabel('Age')
+ax.set_ylabel('Frequency')
 
 plt.tick_params(
     axis='x',
@@ -1197,6 +1259,10 @@ data
 ```
 
 ```python
+data[0]
+```
+
+```python
 # Let's try visualizing our first file
 plotting.view_img(data[0])
 ```
@@ -1218,6 +1284,10 @@ img.shape
 </div>
 
 ```python
+help(plotting.view_img)
+```
+
+```python
 # Let's retrieve our first volume for our first participant
 first_volume = image.index_img(data[0], 0)
 
@@ -1232,7 +1302,7 @@ help(plotting.plot_stat_map)
 plotting.plot_stat_map(
     first_volume, 
     draw_cross=False,
-    #cut_coords=(0, 4, 22),
+    cut_coords=(0, 4, 22),
     display_mode='tiled'
 )
 ```
@@ -1257,7 +1327,7 @@ time_series.shape
 parcel = 0
 plt.figure(figsize=(12,4))
 plt.plot(time_series.T[parcel])
-plt.title(f'Timeserie for parcel {parcelle}')
+plt.title(f'Timeserie for parcel {parcel}')
 plt.xlabel('Volumes')
 plt.ylabel('Amplitude')
 ```
@@ -1273,199 +1343,6 @@ help(plt.legend)
 
 ```python
 # To complete
-```
-
-### Load the data
-
-```python
-from nilearn.connectome import ConnectivityMeasure
-
-correlation_measure = ConnectivityMeasure(kind='correlation', vectorize=True,
-                                         discard_diagonal=True)
-
-
-all_features = [] # here is where we will put the data (a container)
-
-for i,sub in enumerate(data[:66]):
-    # extract the timeseries from the ROIs in the atlas
-    time_series = masker.fit_transform(sub, confounds=confounds[i])
-    # create a region x region correlation matrix
-    correlation_matrix = correlation_measure.fit_transform([time_series])[0]
-    # add to our container
-    all_features.append(correlation_matrix)
-    # keep track of status
-    print('finished %s of %s'%(i+1,len(data[:66])))
-
-np.savez_compressed('data/MAIN_BASC064_subsamp_features', a=all_features)
-```
-
-<div class="alert alert-block alert-danger">
-Si vos données ne se trouvent pas dans le dossier <i>data/</i>, modifier le chemin dans la cellule ci-dessous.
-</div>
-
-```python
-y_ageclass = pheno.head(66)['Child_Adult']
-
-feat_file = 'data/MAIN_BASC064_subsamp_features.npz'
-X_features = np.load(feat_file)['a']
-```
-
-```python
-print(f"Shape X: {X_features.shape}")
-print(f"Shape y: {y_ageclass.shape}")
-```
-
-```python
-sns.countplot(x = y_ageclass)
-```
-
-### Train the model
-
-```python
-from sklearn.model_selection import train_test_split
-
-# Split the sample to training/test and
-# stratify by age class, and also shuffle the data.
-
-X_train, X_test, y_train, y_test = train_test_split(X_features, # x
-                                                    y_ageclass, # y
-                                                    test_size = 0.2, # 80%/20% split  
-                                                    shuffle = True, # shuffle dataset
-                                                                    # before splitting
-                                                    stratify = y_ageclass, # keep
-                                                                           # distribution
-                                                                           # of ageclass
-                                                                           # consistent
-                                                                           # betw. train
-                                                                           # & test sets.
-                                                    random_state = 123 # same shuffle each
-                                                                       # time
-                                                    )
-
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report, confusion_matrix
-
-scaler = StandardScaler().fit(X_train)
-X_train_scl = scaler.transform(X_train)
-X_test_scl = scaler.transform(X_test)
-
-l_svc = SVC(kernel='linear', class_weight='balanced')
-
-l_svc.fit(X_train_scl, y_train) # fit to training data
-y_pred = l_svc.predict(X_test_scl) # classify age class using testing data
-
-acc = l_svc.score(X_test_scl, y_test) # get accuracy
-cr = classification_report(y_pred=y_pred, y_true=y_test) # get prec., recall & f1
-cm = confusion_matrix(y_pred=y_pred, y_true=y_test) # get confusion matrix
-```
-
-```python
-print(cr)
-```
-
-### Visualizing the coefficients
-
-We have trained our model and obtained a fairly high prediction score, which indicates that there is likely something in our data that is systematically linked to age.
-
-```python
-print(l_svc.coef_.shape)
-print(l_svc.coef_)
-```
-
-#### Correlation matrix
-The features of our model correspond to the correlation between each pair of regions that we extracted. The coefficients of our model therefore represent the weight of each of these pairs of regions in predicting the age group. We can thus use a correlation matrix to visualize these weights.
-
-```python
-feat_exp_matrix = correlation_measure.inverse_transform(l_svc.coef_)[0]
-
-plotting.plot_matrix(feat_exp_matrix, figure=(10, 8),  
-                     labels=range(feat_exp_matrix.shape[0]),
-                     reorder='average',
-                    tri='lower', vmax=0.01, vmin=-0.01)
-```
-
-#### Connectome
-
-We can also directly visualize the weight of our features on a brain!
-
-```python
-# Regions coordinates
-coords = plotting.find_parcellation_cut_coords(atlas_filename)
-print(coords.shape)
-```
-
-```python
-plotting.plot_connectome(feat_exp_matrix, coords, colorbar=True)
-```
-
-```python
-plotting.plot_connectome(feat_exp_matrix, coords, colorbar=True, edge_threshold=0.006)
-```
-
-<div class="alert alert-block alert-info">
-<b>Let's add some motion!</b>
-<br>Nilearn has a function that allows us to visualize our connectome interactively! This makes it much easier for us to examine the weights of our features.
-</div>
-
-```python
-plotting.view_connectome(feat_exp_matrix, coords, edge_threshold='90%')
-```
-
-<div class="alert alert-block alert-warning">
-<b>Gray features...</b>
-<br>You may have noticed that our feature weights are plotted in gray. Why do you think that is?
-</div>
-
-```python
-feat_exp_matrix_rm_diag = feat_exp_matrix
-feat_exp_matrix_rm_diag[feat_exp_matrix==1] = 0
-plotting.view_connectome(feat_exp_matrix_rm_diag, coords, edge_threshold='90%')
-```
-
-We have a model that predicts the age group with very high predictive performance. We can see that the features allowing us to make this prediction are distributed throughout the brain. Can we publish our results now?
-<br>
-<br>No! We need to explore further to see if our model is biologically plausible... To do this, we are going to visualize our brain images for each of our groups.
-
-```python
-children, adults = data[33:66], data[0:33]
-avg_children, avg_adults = [], []
-
-# For each participant, we are going to average the brain activity across all our measurement points to obtain a 3D image.
-for child, adult in zip(children, adults):
-    avg_adults.append(image.mean_img(adult))
-    avg_children.append(image.mean_img(child))
-
-# We are going to average our individual 3D images for each participant, doing so for each of our groups separately.
-avg_children = image.mean_img(avg_children)
-avg_adults = image.mean_img(avg_adults)
-```
-
-```python
-plotting.view_img(avg_children, black_bg=False, cut_coords=(0,-16,16), cmap='turbo', symmetric_cmap=False)
-```
-
-```python
-plotting.view_img(avg_adults, black_bg=False, cut_coords=(0,-16,16), cmap='turbo', symmetric_cmap=False)
-```
-
-<div class="alert alert-block alert-warning">
-<b>What do you notice?</b>
-<br>Look at the averaged images for each of the groups. Can you observe any differences?
-</div>
-
-```python
-# Let's retrieve our first volume for our first participant
-first_volume = image.index_img(data[0], 0)
-
-plotting.view_img(first_volume, black_bg=False, cmap='turbo', symmetric_cmap=False)
-```
-
-```python
-# Let's retrieve our first volume for our 39th participant
-first_volume = image.index_img(data[40], 0)
-
-plotting.view_img(first_volume, black_bg=False, cmap='turbo', symmetric_cmap=False)
 ```
 
 ## Supplementary resources
