@@ -1,4 +1,4 @@
-# Python for data visualization and model interpretation
+# Python for data visualization
 
 Training module on data visualization using Python tools
 
@@ -19,6 +19,20 @@ https://www.kaggle.com/code/tombutton/datasaurus-dozen/input
 We will download this dataset using `nilearn`. Follow the instructions in the notebook.
 
 ## Installation
+
+### :snake: Via conda
+
+In your terminal:
+
+1. Install the dependencies in your virtual environment
+
+```bash
+conda env create -f environment.yml
+```
+
+### :sunny: Via `uv`:
+
+In your terminal:
 
 1. Install `uv`
 
@@ -55,5 +69,5 @@ uv pip install -r requirements.txt
 In your terminal:
 
 ```bash
-python -m ipykernel install --user --name=visu-env --display-name "Python cours visu"
+python -m ipykernel install --user --name=visu-env --display-name "bhs_visu"
 ```

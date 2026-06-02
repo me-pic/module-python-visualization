@@ -1,0 +1,22 @@
+name: visu-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python  # Downgraded to match the vintage of the packages
+  - pip
+  - nilearn
+  - cmcrameri
+  - numpy
+  - pandas
+  - seaborn
+  - ipywidgets
+  - matplotlib
+  - notebook
+  - ipykernel
+  - ptitprince
+  - colorspacious
+  - nibabel
+  - pillow
+  - scikit-learn
+  - plotly
