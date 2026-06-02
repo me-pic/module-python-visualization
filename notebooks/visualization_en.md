@@ -22,7 +22,6 @@ jupyter:
 <br> &#x1F3A8; Adequately choose your color palette
 <br> &#x1F503; Learn how to modify different elements of our figures
 <br> &#x1f9e0; Use `nilearn` for neuroimaging data visualization
-<br> &#129302; Understand how visualization can help us interpret our machine learning models
 
 ## Tutorial Organization
 
@@ -239,12 +238,12 @@ You can generate a histogram in Matplotlib using the [hist function](https://mat
 
 ```python jp-MarkdownHeadingCollapsed=true
 # Let's visualize the distribution of `Age`
-plt.hist(participants['Age'])
+...
 # Adding a title
-plt.title("Age Distribution")
+...
 # Adding a title for he x and y label
-plt.xlabel('Age')
-plt.ylabel('Frequency')
+...
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -259,13 +258,8 @@ plt.ylabel('Frequency')
 </div>
 
 ```python
-# Change the value of `bins`
-plt.hist(participants['Age'], bins=10)
-# Adding a title
-plt.title("Age Distribution")
-# Adding a title for he x and y label
-plt.xlabel('Age')
-plt.ylabel('Frequency')
+# Change the value of `bins` (ex. bins=10)
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -278,13 +272,8 @@ help(plt.hist)
 ```
 
 ```python
-# Let's visualize the distribution of `Age`
-plt.hist(participants['Age'], bins='fd')
-# Adding a title
-plt.title("Age Distribution")
-# Adding a title for he x and y label
-plt.xlabel('Age')
-plt.ylabel('Frequency')
+# Let's visualize the distribution of `Age` (ex. bins='fd')
+...
 ```
 
 #### kde plot
@@ -293,7 +282,7 @@ The **Kernel Density Estimation (KDE)** allows us to visualize he distribution o
 
 ```python
 # To visualize the kernel density estimation, we will use the `kdeplot` function in `seaborn`
-sns.kdeplot(participants['Age'])
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -309,12 +298,7 @@ sns.kdeplot(participants['Age'])
 
 ```python
 # We can also overlap a histogram with a kde plot in `seaborn` using the `histplot` function
-sns.histplot(
-    participants['Age'], 
-    kde=True, 
-    bins='fd', 
-    edgecolor=None
-)
+# (kde=True, binds='fd', edgecolor=None)
 ```
 
 <div class="alert alert-block alert-info">
@@ -330,9 +314,8 @@ sns.histplot(
 The **strip plot** allows us to visualize each individual data point. This can make it easier to identify the presence of outliers within our data. However, a scatter plot is not suitable if we have too many data points.
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# Using seaborn `stripplot` function
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -341,34 +324,24 @@ sns.stripplot(
 </div>
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# To complete
 ```
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# To complete
 ```
 
 <div class="alert alert-block alert-info">
 <b>The `jitter` parameter</b>
-<br>You might have noticed that the two scatter plots you generated from the same variable are not exactly identical. This happens because seaborn uses numpy.random to calculate the <i>jitter</i>. To make the <i>jitter</i> calculation reproducible, you can set a <i>seed</i> beforehand.
+<br>You might have noticed that the two scatter plots you generated from the same variable are not exactly identical. This happens because seaborn uses numpy.random to calculate the <i>jitter</i>. To make the <i>jitter</i> calculation reproducible, you can set a <i>seed</i> beforehand using `np.random.seed()`.
 </div>
 
 ```python
-np.random.seed(12)
-sns.stripplot(
-    x=participants['Age']
-)
+...
 ```
 
 ```python
-np.random.seed(12)
-sns.stripplot(
-    x=participants['Age']
-)
+...
 ```
 
 #### Bar plots
@@ -427,9 +400,8 @@ For a **categorical variable** x **continuous variable**, we can use:
 #### Scatter plot - Continuous variable x continuous variable
 
 ```python
-plt.scatter(participants['Age'], participants['ToM Booklet-Matched'])
-plt.xlabel('Age')
-plt.ylabel('ToM Booklet-Matched')
+# Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with matplotlib `scatter` function
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -453,10 +425,8 @@ participants.groupby(['Child_Adult'])['ToM Booklet-Matched'].mean()
 </div>
 
 ```python
-sns.regplot(
-    x=participants['Age'], 
-    y=participants['ToM Booklet-Matched']
-)
+# Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with seaborn `regplot` function
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -465,11 +435,7 @@ sns.regplot(
 </div>
 
 ```python
-sns.regplot(
-    x=participants['Age'], 
-    y=participants['ToM Booklet-Matched'],
-    order=2
-)
+# To complete
 ```
 
 <div class="alert alert-block alert-info">
@@ -478,12 +444,8 @@ sns.regplot(
 </div>
 
 ```python
-sns.lmplot(
-    x='Age', 
-    y='ToM Booklet-Matched',
-    data=participants,
-    hue='Gender'
-)
+# Let's look at the relation between 'Age' and 'ToM Booklet-Matched' with seaborn `lmplot` function
+...
 ```
 
 #### Bivariate KDE plot and hex plot - Continuous Variable x continuous Variable
@@ -1310,17 +1272,8 @@ help(plt.legend)
 ```
 
 ```python
-plt.figure(figsize=(12,4))
-plt.plot(time_series.T[0], label='Parcel 0', ls='--', lw=2, alpha=0.4)
-plt.plot(time_series.T[1], label='Parcel 1', lw=2, zorder=1)
-plt.title(f'Timeseries for parcels 0 and 1')
-plt.xlabel('Volumes')
-plt.ylabel('Amplitude')
-plt.legend(loc='lower right')
+# To complete
 ```
-
-## Machine learning models interpretation via visualization
-
 
 ### Load the data
 

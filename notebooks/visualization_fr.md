@@ -23,7 +23,6 @@ jupyter:
 <br> &#x1F3A8; Choisir adéquatement sa palette de couleurs
 <br> &#x1F503; Apprendre comment modifier différents éléments de nos figures
 <br> &#x1f9e0; Utiliser `nilearn` pour la visualisation de données de neuroimagerie
-<br> &#129302; Comprendre comment la visualisation peut nous aider à interpréter nos modèles d'apprentissage machine
 
 ## Organisation de la séance
 
@@ -214,7 +213,7 @@ Si vos données ne se trouvent pas dans le dossier <i>data/</i>, modifier le che
 participants = pd.read_csv('data/development_fmri/development_fmri/participants.tsv', sep='\t')
 
 # Regardons ce que nous avons dans nos données
-participants.head()
+...
 ```
 
 ```python
@@ -241,12 +240,12 @@ Il est possible de générer un histogramme dans matplotlib grâce à [la foncti
 
 ```python
 # Regardons maintenant sa distribution
-plt.hist(participants['Age'])
-# Ajoutons un titre
-plt.title("Distribution de l'age")
-# Ajoutons un titre à l'axe des x et des y
-plt.xlabel('Age')
-plt.ylabel('Compte')
+...
+# Ajoutons un titre (title)
+...
+# Ajoutons un titre à l'axe des x (xlabel) et des y (ylabel)
+...
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -261,13 +260,8 @@ plt.ylabel('Compte')
 </div>
 
 ```python
-# Modifier la valeur du paramètre `bins`
-plt.hist(participants['Age'], bins=10)
-# Ajoutons un titre
-plt.title("Distribution de l'age")
-# Ajoutons un titre à l'axe des x et des y
-plt.xlabel('Age')
-plt.ylabel('Compte')
+# Modifier la valeur du paramètre `bins` (ex. bins=10)
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -280,13 +274,8 @@ help(plt.hist)
 ```
 
 ```python
-# Regardons maintenant sa distribution
-plt.hist(participants['Age'], bins='fd')
-# Ajoutons un titre
-plt.title("Distribution de l'age")
-# Ajoutons un titre à l'axe des x et des y
-plt.xlabel('Age')
-plt.ylabel('Compte')
+# Regardons maintenant sa distribution (ex. bins='fd')
+...
 ```
 
 #### Estimation de la densité par noyau (*kde plot*)
@@ -297,7 +286,7 @@ L'**estimation de la densité par noyau** (ou *kernel density estimation*) nous 
 # Pour visualiser l'estimation de la densité par noyau, nous allons utiliser la fonction
 # `kdeplot` dans la librairie `seaborn`
 
-sns.kdeplot(participants['Age'])
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -312,13 +301,9 @@ sns.kdeplot(participants['Age'])
 </div>
 
 ```python
-# On peut également supperposer l'histogramme et le kde plot avec seaborn
-sns.histplot(
-    participants['Age'], 
-    kde=True, 
-    bins='fd', 
-    edgecolor=None
-)
+# On peut également supperposer l'histogramme et le kde plot avec seaborn `histplot`
+# (kde=True, binds='fd', edgecolor=None)
+...
 ```
 
 <div class="alert alert-block alert-info">
@@ -334,9 +319,8 @@ L'**histogramme** et l'**estimation de la densité par noyau** nous permettent d
 Le **nuage de points univarié** nous permet de visualiser chaque point de données individuellement. Cela peut nous permettre d'identifier plus facilement la présence de valeurs abbérantes dans nos données. Cependant, le nuage de points n'est pas adapté si nous avons trop de points de données.
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# Utiliser la fonction `stripplot` de la librairie seaborn
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -345,34 +329,24 @@ sns.stripplot(
 </div>
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# À compléter
 ```
 
 ```python
-sns.stripplot(
-    x=participants['Age']
-)
+# À compléter
 ```
 
 <div class="alert alert-block alert-info">
 <b>Le paramètre `jitter`</b>
-<br>Vous avez peut-être remarqué que les deux nuages de points que vous avez générés à partir de la même variable ne sont pas tout à fait identiques. Cela se produit car `seaborn` utilise `numpy.random` pour le calcul du <i>jitter</i>. Pour rendre le calcul du <i>jitter</i> reproductible, il est possible de fixer une <i>seed</i> a priori.
+<br>Vous avez peut-être remarqué que les deux nuages de points que vous avez générés à partir de la même variable ne sont pas tout à fait identiques. Cela se produit car `seaborn` utilise `numpy.random` pour le calcul du <i>jitter</i>. Pour rendre le calcul du <i>jitter</i> reproductible, il est possible de fixer une <i>seed</i> a priori avec `np.random.seed()`.
 </div>
 
 ```python
-np.random.seed(12)
-sns.stripplot(
-    x=participants['Age']
-)
+...
 ```
 
 ```python
-np.random.seed(12)
-sns.stripplot(
-    x=participants['Age']
-)
+...
 ```
 
 #### Diagramme à barres
@@ -431,9 +405,8 @@ Pour une **variable catégorielle** x **variable continue**, nous pouvons utilis
 #### Nuage de points - Variable continue x variable continue
 
 ```python
-plt.scatter(participants['Age'], participants['ToM Booklet-Matched'])
-plt.xlabel('Age')
-plt.ylabel('ToM Booklet-Matched')
+# Regardons la relation entre 'Age' et 'ToM Booklet-Matched' avec la fonction matplotlib `scatter`
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -457,10 +430,8 @@ participants.groupby(['Child_Adult'])['ToM Booklet-Matched'].mean()
 </div>
 
 ```python
-sns.regplot(
-    x=participants['Age'], 
-    y=participants['ToM Booklet-Matched']
-)
+# Regardons la relation entre 'Age' et 'ToM Booklet-Matched' avec la fonction `regplot` de seaborn
+...
 ```
 
 <div class="alert alert-block alert-warning">
@@ -469,11 +440,7 @@ sns.regplot(
 </div>
 
 ```python
-sns.regplot(
-    x=participants['Age'], 
-    y=participants['ToM Booklet-Matched'],
-    order=2
-)
+# À compléter
 ```
 
 <div class="alert alert-block alert-info">
@@ -482,12 +449,8 @@ sns.regplot(
 </div>
 
 ```python
-sns.lmplot(
-    x='Age', 
-    y='ToM Booklet-Matched',
-    data=participants,
-    hue='Gender'
-)
+# Regardons la relation entre 'Age', 'ToM Booklet-Matched' et 'Gender' avec la fonction `lmplot` de seaborn
+...
 ```
 
 #### Estimation de la densité par noyau bivariée et hex plot - Variable continue x variable continue
@@ -1313,17 +1276,8 @@ help(plt.legend)
 ```
 
 ```python
-plt.figure(figsize=(12,4))
-plt.plot(time_series.T[0], label='Parcelle 0', ls='--', lw=2, alpha=0.4)
-plt.plot(time_series.T[1], label='Parcelle 1', lw=2, zorder=1)
-plt.title(f'Décours temporel des parcelles 0 et 1')
-plt.xlabel('Volumes')
-plt.ylabel('Amplitude')
-plt.legend(loc='lower right')
+#À compléter
 ```
-
-## Interpréter les modèles d'apprentissage machine via la visualisation
-
 
 ### Charger les données
 
